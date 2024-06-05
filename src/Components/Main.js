@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
-
+import { Card, Button } from 'antd';
+import { Divider, Image } from "antd";
 function Main() {
     const [data, setData] = useState([]);
+
     window.addEventListener("message", (event) => {
         console.log("Message received in web page ", event.data);
         if (event.data && event.data.type === "FROM_EXTENSION") {
@@ -61,83 +63,19 @@ function Main() {
                     <div className=" p-5 text-xl font-bold">Activity Logs</div>
                     <div className="flex flex-col gap-4">
                         <div className="p-4">
-                            {/* {data.map((event, index) => (
-                                <div
-                                    key={index}
-                                    className="mb-4 p-4 border border-gray-200 rounded-lg shadow-md"
-                                >
-                                    <h3 className="text-lg font-semibold mb-2">
-                                        {index + 1}: {event.type} event
-                                    </h3>
-                                    <p className="text-sm text-gray-600 pb-2">
-                                        Type: {event.type}
-                                    </p>
-                                    {event.type === "scroll" && (
-                                        <div className="">
-                                            <p className="text-sm">
-                                                Scroll Top: {event.scrollTop}
-                                            </p>
-                                            <p className="text-sm">
-                                                Scroll Left: {event.scrollLeft}
-                                            </p>
-                                        </div>
-                                    )}
-                                    {event.type === "click" && (
-                                        <div className="">
-                                            <p className="text-sm">
-                                                X: {event.x}
-                                            </p>
-                                            <p className="text-sm">
-                                                Y: {event.y}
-                                            </p>
-                                            <p className="text-sm">
-                                                XPath: {event.xPath}
-                                            </p>
-                                            <img
-                                                src={event.screenshot}
-                                                alt="Click"
-                                            />
-                                        </div>
-                                    )}
-                                    {event.type === "typing" && (
-                                        <div className="">
-                                            <p className="text-sm">
-                                                XPath: {event.xPath}
-                                            </p>
-                                            <p className="text-sm">
-                                                Text: {event.text}
-                                            </p>
-                                        </div>
-                                    )}
-                                    {event.type === "assert" && (
-                                        <div className="">
-                                            <p className="text-sm">
-                                                XPath : {event.xPath}
-                                            </p>
-                                            <p className="text-sm">
-                                                x: {event.x}
-                                            </p>
-                                            <p className="text-sm">
-                                                y: {event.y}
-                                            </p>
-                                            <img
-                                                src={event.screenshot}
-                                                alt="Click"
-                                            />
-                                        </div>
-                                    )}
-                                </div>
-                            ))} */}
+
                             {data.map((event, index) =>
                                 event.type === "network" ? (
-                                    <div className="mb-6 p-6 border border-gray-200 rounded-lg bg-white">
+                                    <Card className="mb-6" bodyStyle={{ padding: '12px' }} bordered={true} hoverable={true} style={{ background: '#f5f5f5' }}>
                                         <div>
                                             {index + 1}: Network Request :{" "}
                                             <p className="text-gray-500">
                                                 {event.url}
                                             </p>
+                                            <Button type="primary" style={{ backgroundColor: 'blue' }}>Click Me</Button>
+
                                         </div>
-                                    </div>
+                                    </Card>
                                 ) : (
                                     <div
                                         key={index}
@@ -206,7 +144,7 @@ function Main() {
                                                             {
                                                                 event
                                                                     .otherProperties[
-                                                                    key
+                                                                key
                                                                 ]
                                                             }{" "}
                                                             <br />
@@ -217,7 +155,7 @@ function Main() {
                                                     src={event.screenshot}
                                                     alt="Click"
                                                     className="w-full h-[5rem] object-contain "
-                                                    // className="w-full h-auto max-h-64 object-contain border border-gray-300 rounded-md"
+                                                // className="w-full h-auto max-h-64 object-contain border border-gray-300 rounded-md"
                                                 />
                                             </div>
                                         )}
@@ -238,53 +176,36 @@ function Main() {
                                             </div>
                                         )}
                                         {event.type === "assert" && (
-                                            <div className="text-gray-700">
-                                                <p className="text-sm mb-2">
-                                                    <span className="font-semibold">
-                                                        XPath:
-                                                    </span>{" "}
-                                                    {event.xPath}
-                                                </p>
-                                                <p className="text-sm mb-2">
-                                                    <span className="font-semibold">
-                                                        X:
-                                                    </span>{" "}
-                                                    {event.x}
-                                                </p>
-                                                <p className="text-sm mb-4">
-                                                    <span className="font-semibold">
-                                                        Y:
-                                                    </span>{" "}
-                                                    {event.y}
-                                                </p>
-                                                <p className="text-sm mb-4">
-                                                    <span className="font-semibold">
-                                                        Other Properties:
-                                                    </span>{" "}
-                                                    {Object.keys(
-                                                        event.otherProperties
-                                                    ).map((key) => (
-                                                        <span key={key}>
-                                                            {/* Display key and value */}
-                                                            {key}:{" "}
-                                                            {
-                                                                event
-                                                                    .otherProperties[
-                                                                    key
-                                                                ]
-                                                            }{" "}
-                                                            <br />
-                                                        </span>
-                                                    ))}
-                                                </p>
-
-                                                <img
-                                                    src={event.screenshot}
-                                                    alt="Assert"
-                                                    className="w-full h-[5rem] object-contain  "
-                                                    // className="w-full h-auto max-h-64 object-contain border border-gray-300 rounded-md"
-                                                />
-                                            </div>
+                                            <Card className="p-4 rounded-lg shadow-lg">
+                                                <div className="text-gray-700">
+                                                    <p className="text-sm mb-2">
+                                                        <span className="font-semibold">XPath:</span> {event.xPath}
+                                                    </p>
+                                                    <Divider />
+                                                    <p className="text-sm mb-2">
+                                                        <span className="font-semibold">X:</span> {event.x}
+                                                    </p>
+                                                    <Divider />
+                                                    <p className="text-sm mb-4">
+                                                        <span className="font-semibold">Y:</span> {event.y}
+                                                    </p>
+                                                    <Divider />
+                                                    <p className="text-sm mb-4">
+                                                        <span className="font-semibold">Other Properties:</span>{" "}
+                                                        {Object.keys(event.otherProperties).map((key) => (
+                                                            <span key={key}>
+                                                                {key}: {event.otherProperties[key]} <br />
+                                                            </span>
+                                                        ))}
+                                                    </p>
+                                                    <Divider />
+                                                    <Image
+                                                        src={event.screenshot}
+                                                        alt="Assert"
+                                                        className="w-full h-20 object-contain border border-gray-300 rounded"
+                                                    />
+                                                </div>
+                                            </Card>
                                         )}
                                     </div>
                                 )
@@ -292,8 +213,8 @@ function Main() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 

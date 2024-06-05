@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useDispatch } from "react";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { Button } from 'antd';
 
 const Navbar = () => {
 
@@ -26,20 +26,23 @@ const Navbar = () => {
     sendMessageToExtension_replay("start_replaying");
   };
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setUri(e.target.value);
-  };
 
   const [add, setAdd] = useState(false);
 
   function AddURI() {
+    const [url, setUrl] = useState("");
+
     const saveHandler = (e) => {
       callExtension();
       setAdd(false);
-      setUri("");
+      setUri(url);
       e.preventDefault();
     };
+    const handleChange = (e) => {
+      // e.preventDefault();
+      setUrl(e.target.value);
+    };
+
     return (
       <div className="w-[100%] h-[100%]">
         <div className="flex  justify-center items-center h-[100%] w-[100%] md:w-[70%] mx-auto ">
@@ -55,11 +58,10 @@ const Navbar = () => {
                   setAdd(false);
                 }}
               >
-                <CloseOutlinedIcon />
               </span>
             </div>
             <input
-              value={uri}
+              value={url}
               onChange={handleChange}
               className="py-[4px] outline-none border-b-[1px] border-b-gray-400"
               type="text"
@@ -92,18 +94,34 @@ const Navbar = () => {
               navigate("/");
             }}
           >
-            uiTesting
+            Activity Tracker
           </span>
         </div>
         <div className=" flex gap-[5px] justify-center item-center">
-          <button
+          {/* <button
             onClick={() => {
               setAdd(true);
             }}
             className="rounded-md px-3 py-[2px] text-[13px] sm:text-[17px]  font-bold  bg-[#ff4343]  text-white"
           >
             Record
-          </button>
+          </button> */}
+          <Button
+            onClick={() => {
+              setAdd(true);
+            }}
+            type="primary"
+            size="large"
+            style={{
+              backgroundColor: '#ff4343',
+              borderColor: '#ff4343',
+              borderWidth: '2px', 
+              fontWeight: 'bold', 
+              color: 'white', 
+            }}
+          >
+            Record
+          </Button>
 
           <button
             onClick={() => {
